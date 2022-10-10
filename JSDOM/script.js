@@ -45,7 +45,9 @@ document.addEventListener('mousemove', (args) => {
 })
 
 let xHair = false;
+
 const xBtn = document.getElementById('btnX');
+
 xBtn.addEventListener('click', () => {
     if (!xHair){
         document.getElementById('vLine').className = 'vLine';
