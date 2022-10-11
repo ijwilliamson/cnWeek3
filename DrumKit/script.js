@@ -18,7 +18,7 @@ drums.forEach((drum) => {
 
 
 // Handle key presses
-const keys = ["A", "S", "D", "F", "G", "H","J","K"];
+const keys = ["A", "S", "D", "F", "G", "H","J","K","L"];
 
 document.addEventListener('keypress',(args) => {
     const keytoCheck = args.key.toString().toUpperCase();
@@ -32,6 +32,8 @@ document.addEventListener('keypress',(args) => {
 
 // Play a sound using the soundId (1 - 9)
 playSound =(soundId) => {
+    console.log(soundId)
     let compiledSound = `sound${soundId}`;
     document.getElementById(compiledSound).play();
+   
 }
