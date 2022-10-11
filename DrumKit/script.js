@@ -33,5 +33,8 @@ document.addEventListener('keypress',(args) => {
 // Play a sound using the soundId (1 - 9)
 playSound =(soundId) => {
     let compiledSound = `sound${soundId}`;
-    document.getElementById(compiledSound).play(); 
+    soundElement = document.getElementById(compiledSound);
+    soundElement.pause();
+    soundElement.currentTime=0;
+    soundElement.play(); 
 }
