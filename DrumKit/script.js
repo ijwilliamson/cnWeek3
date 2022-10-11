@@ -3,7 +3,7 @@
 //------------------
 
 //Build Drum Array
-const drums = Array(7).fill(null);
+const drums = Array(8).fill(null);
 for (let i = 0; i < drums.length; i++){
     drums[i] = document.getElementById(`Drum${i+1}`);
 }
@@ -12,10 +12,26 @@ for (let i = 0; i < drums.length; i++){
 
 drums.forEach((drum) => {
     drum.addEventListener('click', ()=>{
-        let compiledSound = `sound${drum.id.substring(4)}`;
-        document.getElementById(compiledSound).play();
+        playSound(drum.id.substring(4));
     })
 })
 
 
+// Handle key presses
+const keys = ["A", "S", "D", "F", "G", "H","J","K"];
 
+document.addEventListener('keypress',(args) => {
+    const keytoCheck = args.key.toString().toUpperCase();
+    if ( keys.includes(keytoCheck ))
+    {
+       const sound = keys.indexOf(keytoCheck)+1;
+       playSound(sound);
+    }
+})
+
+
+// Play a sound using the soundId (1 - 9)
+playSound =(soundId) => {
+    let compiledSound = `sound${soundId}`;
+    document.getElementById(compiledSound).play();
+}

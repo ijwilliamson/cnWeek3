@@ -1,8 +1,15 @@
+body{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 drumKit{
     display: block;
-    width:860px;
+    width:900px;
     height:730px;
-    border: 1px solid black;
+   
 }
 
 .st0{fill:#939393;stroke:#666666;stroke-width:5;stroke-miterlimit:10;}
@@ -19,6 +26,26 @@ drumKit{
 	.st11{fill:url(#SVGID_00000100346800120806299650000000952487934817444267_);}
 	.st12{fill:url(#SVGID_00000020382042184905277630000017460240271489899190_);}
 
+.st28{fill:none; stroke:#000000;stroke-miterlimit:10;}
+
+#Drum2{
+    transform:translateY(40px)
+}
+#Drum6{
+    transform:translateY(50px)
+}
+#Drum5{
+    transform:translateY(50px)
+}
+
+
+#Drum8 .st28 {
+    display:none;
+}
+
+#Drum8:hover .st28 {
+    display:block;
+}
 
 
 #Drum3:hover .cy1,
@@ -36,12 +63,42 @@ drumKit{
     fill: rgb(115, 116, 116);
 }
 
+
+#Drum1:active,
+#Drum2:active,
+#Drum3:active {
+   animation: cymbol .2s linear both;
+   transform-origin: 793.5px, 335.5px;
+   
+    transform-style: preserve-3d;
+}
+
 #Drum7:active,
 #Drum4:active,
 #Drum5:active,
 #Drum6:active {
-    animation: drum 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    animation: drum .8s linear both;
 }
+
+@keyframes cymbol {
+    10%, 90% {
+        transform: rotateY(2deg);
+       
+      }
+      
+      20%, 80% {
+        transform: rotateY(4deg);
+      }
+    
+      30%, 50%, 70% {
+        transform: rotateY(20deg);
+      }
+    
+      40%, 60% {
+        transform: rotateY(4deg);
+      }
+}
+
 
 @keyframes drum {
     10%, 90% {
@@ -59,4 +116,23 @@ drumKit{
       40%, 60% {
         transform: translate3d(8px, 0, 0);
       }
+}
+
+keys{
+    display:flex;
+    flex-direction: row;
+    
+}
+
+key{
+    width:80px;
+    height:80px;
+    border:2px solid #666666;
+    display:block;
+    background-color: bisque;
+    margin:4px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 5px;
+
 }
