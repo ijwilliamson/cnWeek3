@@ -9,16 +9,11 @@ for (let i = 0; i < drums.length; i++){
 }
 
 //Add click event to each drum
-let soundId = 1;
+
 drums.forEach((drum) => {
     drum.addEventListener('click', ()=>{
-       let compiledSound = `sound${drum.id.substring(4)}`;
-
-       console.log(compiledSound)
+        let compiledSound = `sound${drum.id.substring(4)}`;
         document.getElementById(compiledSound).play();
-      //document.getElementById('sound1').play();
-        console.log(`${drum.id}`);
-        soundId +=1;
     })
 })
 

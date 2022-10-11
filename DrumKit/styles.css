@@ -19,7 +19,16 @@ drumKit{
 	.st11{fill:url(#SVGID_00000100346800120806299650000000952487934817444267_);}
 	.st12{fill:url(#SVGID_00000020382042184905277630000017460240271489899190_);}
 
-#Drum7:hover .st1,
+
+
+#Drum3:hover .cy1,
+#Drum2:hover .cy1,
+#Drum1:hover .cy1{
+    fill: rgba(31, 31, 31, 0.5) !important;
+    
+}
+
+    #Drum7:hover .st1,
 #Drum4:hover .st1,
 #Drum5:hover .st1,
 #Drum6:hover .st1
