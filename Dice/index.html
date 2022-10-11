@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    
+    <game>
+        <leftSide>
+            <player>Player 1</player>
+            <score>0</score>
+            <p>CURRENT SCORE</p>
+            <currentScore>0</currentScore>
+            <holdButton>Hold</holdButton>
+            
+        </leftSide>
+        <rightSide>
+            <player>Player 2</player>
+            <score>0</score>
+            <p>CURRENT SCORE</p>
+            <currentScore>0</currentScore>
+            <holdButton>Hold</holdButton>
+          
+        </rightSide>
+    </game>
+
+    <centerControls>
+        <restart>Restart</restart>
+        <div>
+            <die>
+                <circle></circle>
+                <circle class="hide"></circle>
+                <circle></circle>
+                <circle class="hide"></circle>
+                <circle></circle>
+                <circle class="hide"></circle>
+                <circle></circle>
+                <circle class="hide"></circle>
+                <circle></circle>
+            </die>
+            <p>Player 1 click to roll</p>
+        </div>
+
+        <p>Dice Game</p>
+    </centerControls>
+    <winner class="hide">Player 1 Wins!</winner>
+    <overlay><restart>Click to begin a game of dice</restart></overlay>
+
+<!--Nothing below this line-->
+
+
+<script src="script.js"></script>
+</body>
+</html>
