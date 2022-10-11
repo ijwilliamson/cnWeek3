@@ -36,7 +36,7 @@ rightSide.getElementsByTagName('holdButton')[0].addEventListener('click', ()=>{
 })
 
 resetButton.addEventListener('click', ()=> {
-    document.getElementsByTagName('winner')[0].classList.add('hide');
+    document.getElementsByTagName('winner')[0].classList.add('remove');
     overlay.className = "";
 })
 
@@ -52,7 +52,7 @@ checkWinner = ()=>{
     if (scores[0]>=20 || scores[1]>=20){
        const winner =  document.getElementsByTagName('winner')[0];
        winner.textContent = `Player ${currentPlayer+1} Wins!`      
-        winner.classList.remove('hide');
+        winner.classList.remove('remove');
         leftSide.classList.add('disable');
         rightSide.classList.add('disabe');
         die.classList.add('hide');

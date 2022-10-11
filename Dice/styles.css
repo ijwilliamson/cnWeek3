@@ -6,180 +6,400 @@ body {
     width: 100vw;
     height: 100vh;
     position: absolute;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    min-width: 624px;
-    min-height: 446px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;  
 }
 
-game {
-    display:flex;
-    width:calc( 100% - 40px);
-    height:calc( 100% - 40px);
-    background-color: rgb(62, 62, 62);
-    position: absolute;
-    margin:10px;
-    padding:10px;
-
-}
-
-game leftSide, game rightSide{
-    width:50%;
-    height:100%;
-    background-color: blanchedalmond;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    game {
+        display:flex;
+        width:calc( 100% - 40px);
+        height:calc( 100% - 40px);
+        background-color: rgb(62, 62, 62);
+        position: absolute;
+        margin:10px;
+        padding:10px;
     
-}
+    }
 
-game leftSide {
-    padding-right:100px;
+    holdButton, restart {
+        display:block;
+        background-color: gold;
+        padding:20px 40px 20px 40px;
+        margin:20px;
+        opacity: 1;
+        border-radius: 20px;
+        border:2px solid black;
+        filter: drop-shadow(3px 3px 0px black);
+        text-align: center;
+    }
+
+    holdButton:hover, restart:hover {
+        filter: drop-shadow(1px 1px 0px black);
+        transform: translate(2px, 2px);
+        cursor: pointer;
+    }
+
+    holdButton:active, restart:active {
+        background-color: brown;
+    }
+
+    centerControls{
+        background-color: rgb(142, 96, 44);
+        height:calc(100vh - 40px);
+        width:200px;
+        position: absolute;
+        top: 21px;
+        left: calc(50vw - 100px);
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .hide {
+        opacity: 0;
+    }
+    .disable {
+        opacity: .2;
+    }
+    .remove{
+        display:none;
+    }
+
+    overlay {
+        position:absolute;
+        width:100vw;
+        height:100vh;
+        background-color: rgba(0,0,0,.9) ;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     
-}
+    overlay restart {
+        padding-left:20px;
+        padding-right:20px;
+    }
 
-game rightSide {
-    padding-left:100px;
+    holdButton, restart {
+        display:block;
+        background-color: gold;
+        padding:20px 40px 20px 40px;
+        margin:20px;
+        opacity: 1;
+        border-radius: 20px;
+        border:2px solid black;
+        filter: drop-shadow(3px 3px 0px black);
+        text-align: center;
+    }
+
+@media screen and (min-width: 638px){
+
+    game{
+        flex-direction: row;
+    }
+    
+    game leftSide, game rightSide{
+        width:50%;
+        height:100%;
+        background-color: blanchedalmond;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    
+    game leftSide {
+        padding-right:100px;
+        
+    }
+    
+    game rightSide {
+        padding-left:100px;
+       
+    }
+    
+
+    
+    player {
+        font-size: 60px;
+    }
+    
+    score {
+        font-size: 140px;
+    }
+    
+    game p {
+        font-size: 30px;
+    }
+    
+    currentScore {
+        font-size: 30px;
+    }
+    holdButton, restart {
+        padding:20px 40px 20px 40px;
+        opacity: 1;
+        border-radius: 20px;
+        border:2px solid black;
+        filter: drop-shadow(3px 3px 0px black);
+        text-align: center;
+    }
+    
+  
+    
+
+    
+    winner{
+        display:block;
+        position:absolute;
+        height:50px;
+        width:calc(100vw - 60px);
+        left:30px;
+        top:calc(20vh - 25px);
+        background-color: gold;
+        border: 2px dashed black;
+        text-align: center;
+        line-height: 50px;
+        font-size: 40px;
+    }
+    
+    centerControls{
+        border-left: 2px dashed rgb(79, 60, 23);
+        border-right: 2px dashed rgb(79, 60, 23);
+        height:calc(100vh - 40px);
+        width:200px;      
+        left: calc(50vw - 100px);
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    centerControls p {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        font-weight: 200;
+        color:antiquewhite
+    }
+    
+    die{
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width:129px;
+        height:129px;
+        background-color: rgb(255, 255, 255);
+        margin-left:auto;
+        margin-right:auto;
+        border-radius: 20px;
+        padding: 10px;
+        border:2px solid black;
+        filter:drop-shadow(5px 5px 0px black)
+    }
+    
+    die:hover{
+        filter:drop-shadow(3px 3px 0px black);
+        transform: translate(2px, 2px);
+        cursor: pointer;
+    }
+    
+    die:active{
+    
+        background-color: brown; 
+    }
+    
+    circle {
+        height: 23px;
+        width: 23px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+        margin: 10px;
+        filter:drop-shadow(0px 0px 3px black);
+        opacity:1;
+      }
+    
    
+    
+    overlay {
+        position:absolute;
+        width:100vw;
+        height:100vh;
+        background-color: rgba(0,0,0,.9) ;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    overlay restart {
+        width:300px;
+    }
 }
 
-game rightSide {
-    padding-left:100px;
-}
+@media screen and (max-width: 638px) {
+    
 
-player {
-    font-size: 60px;
-}
+    game{
+        flex-direction: column;
+    }
 
-score {
-    font-size: 140px;
-}
+    game leftSide, game rightSide{
+        width:100%;
+        height:calc(50% - 100px);
+        background-color: blanchedalmond;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+    }
 
-game p {
-    font-size: 30px;
-}
+    game leftSide {
+         padding-bottom:100px; 
+        
+    }
+    
+    game rightSide {
+         padding-top:100px; 
+       
+    }
 
-currentScore {
-    font-size: 30px;
-}
-holdButton, restart {
-    display:block;
-    background-color: gold;
-    padding:20px 40px 20px 40px;
-    margin:20px;
-    opacity: 1;
-    border-radius: 20px;
-    border:2px solid black;
-    filter: drop-shadow(3px 3px 0px black);
-    text-align: center;
-}
+    player {
+        background-color: aqua;
+        font-size: 30px;
+        writing-mode:vertical-lr;
+        text-orientation: sideways-left;
+        text-align: center;
+        align-self: stretch;
+        
+    }
+    
+    score {
+        font-size: 140px;
+        align-self: stretch;
+        text-align: center;
+        line-height: calc(50vh - 100px);
+    }
+    
+    game p {
+        font-size: 30px;
+        display:none;
+    }
+    
+    currentScore {
+        font-size: 30px;
+    }
 
-holdButton:hover, restart:hover {
-    filter: drop-shadow(1px 1px 0px black);
-    transform: translate(2px, 2px);
-    cursor: pointer;
-}
-
-holdButton:active, restart:active {
-    background-color: brown;
-}
-
-winner{
-    display:block;
-    position:absolute;
-    height:50px;
-    width:calc(100vw - 60px);
-    left:30px;
-    top:calc(20vh - 25px);
-    background-color: gold;
-    border: 2px dashed black;
-    text-align: center;
-    line-height: 50px;
-    font-size: 40px;
-}
-
-centerControls{
-    border-left: 2px dashed rgb(79, 60, 23);
-    border-right: 2px dashed rgb(79, 60, 23);
-    background-color: rgb(142, 96, 44);
-    height:calc(100vh - 40px);
-    width:200px;
-    position: absolute;
-    top: 21px;
-    left: calc(50vw - 100px);
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-centerControls p {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    font-weight: 200;
-    color:antiquewhite
-}
-
-die{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width:129px;
-    height:129px;
-    background-color: rgb(255, 255, 255);
-    margin-left:auto;
-    margin-right:auto;
-    border-radius: 20px;
-    padding: 10px;
-    border:2px solid black;
-    filter:drop-shadow(5px 5px 0px black)
-}
-
-die:hover{
-    filter:drop-shadow(3px 3px 0px black);
-    transform: translate(2px, 2px);
-    cursor: pointer;
-}
-
-die:active{
-
-    background-color: brown; 
-}
-
-circle {
-    height: 23px;
-    width: 23px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 50%;
-    margin: 10px;
-    filter:drop-shadow(0px 0px 3px black);
-    opacity:1;
-  }
-
-.hide {
-    opacity: 0;
-}
-.disable {
-    opacity: .2;
-}
-.remove{
-    display:none;
-}
-
-overlay {
-    position:absolute;
-    width:100vw;
-    height:100vh;
-    background-color: rgba(0,0,0,.9) ;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-overlay restart {
-    width:300px;
-}
+    holdButton, restart {
+        padding:10px 20px 10px 20px;
+        opacity: 1;
+        border-radius: 5px;
+        border:0px solid black;
+        margin: 0px !important;
+        filter: drop-shadow(3px 3px 0px black);
+        text-align: center;
+        align-self: stretch;
+        writing-mode: vertical-lr;
+        text-orientation:upright;
+    }
+    
+    die{
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width:60px;
+        height:60px;
+        background-color: rgb(255, 255, 255);
+        margin-left:auto;
+        margin-right:auto;
+        border-radius: 20px;
+        padding: 10px;
+        border:2px solid black;
+        filter:drop-shadow(5px 5px 0px black)
+    }
+    
+    die:hover{
+        filter:drop-shadow(3px 3px 0px black);
+        transform: translate(2px, 2px);
+        cursor: pointer;
+    }
+    
+    die:active{
+    
+        background-color: brown; 
+    }
+    
+    circle {
+        height: 10px;
+        width: 10px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+        margin: 5px;
+        filter:drop-shadow(0px 0px 3px black);
+        opacity:1;
+      }
+    
 
 
+
+
+
+    centerControls{
+        border-top: 2px dashed rgb(79, 60, 23);
+        border-bottom: 2px dashed rgb(79, 60, 23);
+        height: 200px;
+        width: calc(100vw - 40px);
+        left: 21px;
+        top: calc(50vh - 100px);
+        flex-direction: row;
+        justify-content: space-between;
+       
+    }
+
+    centerControls restart {
+        padding:10px 20px 10px 20px;
+        opacity: 1;
+        border-radius: 0px;
+        border:0px solid black;
+        margin: 0px !important;
+        filter: drop-shadow(3px 3px 0px black);
+        text-align: center;
+        align-self: stretch;
+        writing-mode: vertical-lr;
+        text-orientation:upright;
+    }
+
+    centerControls div{
+        align-self: center;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    centerControls p {
+        display: none;
+    }
+
+    overlay restart {
+        
+        writing-mode: horizontal-tb;
+        text-orientation:sideways;
+        align-self: auto;
+    }
+
+    winner{
+        display:block;
+        position:absolute;
+        height:50px;
+        width:calc(100vw - 60px);
+        left:30px;
+        top:calc(50vh - 25px);
+        background-color: gold;
+        border: 2px dashed black;
+        text-align: center;
+        line-height: 50px;
+        font-size: 40px;
+    }
+    
+
+}
 
