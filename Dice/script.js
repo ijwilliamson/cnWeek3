@@ -14,9 +14,15 @@ const rightSide = document.querySelector("rightSide")
 const controls = document.querySelector("centerControls")
 const die = document.querySelector("die")
 const dieCircles = document.querySelectorAll('die circle')
+const winnerBar = document.querySelector("winner")
 
 
 //Add button Events
+winnerBar.addEventListener('click', ()=> {
+    winnerBar.classList.add('remove');
+    hideShowOverlay('show');
+})
+
 startButton.addEventListener('click', ()=> {
     hideShowOverlay('hide');
     startNewGame();
@@ -113,14 +119,16 @@ setCurrentPlayer = ()=>{
        leftSide.classList.remove('disable');
        rightSide.getElementsByTagName('holdButton')[0].classList.add('hide')
        leftSide.getElementsByTagName('holdButton')[0].classList.remove('hide')
-      
+        document.getElementById('dieArea').classList.add("rotate");
     } else {
         leftSide.classList.add('disable')
         rightSide.classList.remove('disable');
         rightSide.getElementsByTagName('holdButton')[0].classList.remove('hide')
         leftSide.getElementsByTagName('holdButton')[0].classList.add('hide')
-      
+        document.getElementById('dieArea').classList.remove("rotate");
     }
+
+    document.getElementById('playerRoll').textContent = `Player ${currentPlayer+1} click to roll`
 }
 
 hideShowOverlay = (state)=>{

@@ -162,6 +162,7 @@ body {
         text-align: center;
         line-height: 50px;
         font-size: 40px;
+        cursor: pointer;
     }
     
     centerControls{
@@ -217,8 +218,6 @@ body {
         opacity:1;
       }
     
-   
-    
     overlay {
         position:absolute;
         width:100vw;
@@ -237,7 +236,6 @@ body {
 
 @media screen and (max-width: 638px) {
     
-
     game{
         flex-direction: column;
     }
@@ -251,11 +249,13 @@ body {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        
+       
+
     }
 
     game leftSide {
-         padding-bottom:100px; 
+         padding-top:100px;
+         transform: rotate(180deg); 
         
     }
     
@@ -265,13 +265,13 @@ body {
     }
 
     player {
-        background-color: aqua;
+        background-color: rgb(192, 101, 32);
         font-size: 30px;
         writing-mode:vertical-lr;
-        text-orientation: sideways-left;
         text-align: center;
         align-self: stretch;
-        
+        padding: 0 10px 0 10px;
+        transform: rotate(180deg);
     }
     
     score {
@@ -285,6 +285,16 @@ body {
         font-size: 30px;
         display:none;
     }
+
+
+
+    centerControls div p{
+        display:block;
+    }
+
+    .rotate{
+        transform: rotate(180deg);
+    }
     
     currentScore {
         font-size: 30px;
@@ -293,16 +303,23 @@ body {
     holdButton, restart {
         padding:10px 20px 10px 20px;
         opacity: 1;
-        border-radius: 5px;
-        border:0px solid black;
+        border-radius: 0px;
+        border:1px solid black;
         margin: 0px !important;
-        filter: drop-shadow(3px 3px 0px black);
+        filter: none;
         text-align: center;
         align-self: stretch;
         writing-mode: vertical-lr;
-        text-orientation:upright;
+        text-orientation:sideways;
+        transform: rotate(180deg);
     }
     
+    holdButton:hover, restart:hover {
+        transform: rotate(180deg);
+        filter: none;
+        /* transform: translate(0px, 0px); */
+    }
+
     die{
         display:flex;
         flex-direction: row;
@@ -339,11 +356,6 @@ body {
         opacity:1;
       }
     
-
-
-
-
-
     centerControls{
         border-top: 2px dashed rgb(79, 60, 23);
         border-bottom: 2px dashed rgb(79, 60, 23);
@@ -357,17 +369,20 @@ body {
     }
 
     centerControls restart {
-        padding:10px 20px 10px 20px;
+        padding: 10px  10px  10px  10px;
         opacity: 1;
         border-radius: 0px;
         border:0px solid black;
         margin: 0px !important;
-        filter: drop-shadow(3px 3px 0px black);
+        filter: none;;
         text-align: center;
-        align-self: stretch;
-        writing-mode: vertical-lr;
-        text-orientation:upright;
+        align-self: center;
+        writing-mode:vertical-lr;
+        text-orientation: sideways;
+        transform: rotate(180deg);
     }
+
+    
 
     centerControls div{
         align-self: center;
@@ -398,6 +413,7 @@ body {
         text-align: center;
         line-height: 50px;
         font-size: 40px;
+        cursor: pointer;
     }
     
 
