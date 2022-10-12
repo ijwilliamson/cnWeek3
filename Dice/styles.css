@@ -80,6 +80,29 @@ body {
         padding-right:20px;
     }
 
+    options{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    options option{
+        background-color:gold;
+        padding:10px;
+        margin:5px;
+        border-radius: 10px;
+    }
+
+    options option:hover{
+        box-shadow: inset 0 0 10px black;
+        cursor: pointer;
+    }
+    .selected{
+        background-color:crimson;
+    }
+
+    
+
     holdButton, restart {
         display:block;
         background-color: gold;
@@ -399,6 +422,11 @@ body {
         writing-mode: horizontal-tb;
         text-orientation:sideways;
         align-self: auto;
+        transform: rotate(0deg);
+    }
+
+    overlay restart:hover {
+        transform: rotate(0deg);
     }
 
     winner{
@@ -416,6 +444,7 @@ body {
         cursor: pointer;
     }
     
+
 
 }
 

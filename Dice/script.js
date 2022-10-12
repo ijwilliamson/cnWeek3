@@ -2,8 +2,9 @@
 
 let gameRunning = false;
 let currentPlayer = 0;  //0 left : 1 right
-let scores = [0,0]
-let currentScore = [0,0]
+let scores = [0,0];
+let currentScore = [0,0];
+let goal = 20;
 
 const overlay = document.querySelector("overlay")
 const startButton = document.querySelector("overlay restart")
@@ -15,9 +16,17 @@ const controls = document.querySelector("centerControls")
 const die = document.querySelector("die")
 const dieCircles = document.querySelectorAll('die circle')
 const winnerBar = document.querySelector("winner")
-
+const options = document.querySelector("options")
+const optionArray = options.querySelectorAll("option")
 
 //Add button Events
+
+optionArray.forEach((o) => {
+    o.addEventListener('click', ()=>{
+        setOption(o);
+    })
+})
+
 winnerBar.addEventListener('click', ()=> {
     winnerBar.classList.add('remove');
     hideShowOverlay('show');
@@ -32,6 +41,13 @@ die.addEventListener('click', ()=> {
     if (!gameRunning) return;
     diceRoll();
 })
+
+setOption = (opt)=>{
+
+    optionArray.forEach(c =>{c.className=""});
+    opt.classList.add('selected')
+    goal = parseInt(opt.textContent);
+}
 
 leftSide.getElementsByTagName('holdButton')[0].addEventListener('click', ()=>{
      bankScore();
@@ -55,7 +71,7 @@ bankScore = ()=> {
 }
 
 checkWinner = ()=>{
-    if (scores[0]>=20 || scores[1]>=20){
+    if (scores[0]>=goal || scores[1]>=goal){
        const winner =  document.getElementsByTagName('winner')[0];
        winner.textContent = `Player ${currentPlayer+1} Wins!`      
         winner.classList.remove('remove');
