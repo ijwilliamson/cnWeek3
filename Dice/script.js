@@ -18,8 +18,27 @@ const dieCircles = document.querySelectorAll('die circle')
 const winnerBar = document.querySelector("winner")
 const options = document.querySelector("options")
 const optionArray = options.querySelectorAll("option")
+const rPlayerName = document.getElementsByTagName('player')[0]
+const lPlayerName = document.getElementsByTagName('player')[1]
+
 
 //Add button Events
+
+rPlayerName.addEventListener('dblclick', () => {
+    NameEdit(rPlayerName,true);
+} )
+
+lPlayerName.addEventListener('dblclick', () => {
+    NameEdit(lPlayerName,true);
+} )
+rPlayerName.addEventListener('keypress', (args) => {
+    if (args.keyCode === 13){
+        NameEdit(rPlayerName,false);}
+})
+lPlayerName.addEventListener('keypress', (args) => {
+    if (args.keyCode === 13){
+        NameEdit(lPlayerName,false);}
+})
 
 optionArray.forEach((o) => {
     o.addEventListener('click', ()=>{
@@ -42,7 +61,15 @@ die.addEventListener('click', ()=> {
     diceRoll();
 })
 
-setOption = (opt)=>{
+NameEdit = (player,state)=>{
+    player.contentEditable=state;
+   
+    console.log(player)
+}
+
+
+
+setOption = (opt,state)=>{
 
     optionArray.forEach(c =>{c.className=""});
     opt.classList.add('selected')
