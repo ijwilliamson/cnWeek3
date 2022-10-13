@@ -50,6 +50,7 @@ let cash = [100,100];
 let bet = 0;
 
 
+
 //Events
 document.addEventListener('DOMContentLoaded',()=> pageLoad());
 deck.addEventListener('click', () => hitACard());
@@ -175,7 +176,7 @@ checkScore = ()=> {
     //loop for each ace using 11 and 1
     //return true if valid score
 
-    tempCardValues = [];
+    let tempCardValues = [];
     playersCards[currentPlayer].forEach((card) =>{
         tempCardValues.push(card.value);
     })
@@ -202,6 +203,8 @@ checkScore = ()=> {
                                                                 actualScores[0].toString();
         document.querySelectorAll('player .playerStatus')[currentPlayer].textContent =
         "Bust";
+        //TODO insert screen for new round to be called from here.
+        reset();
         return false;
     } else {
         validScores.sort((a,b) => {return a - b});
@@ -209,6 +212,24 @@ checkScore = ()=> {
         scorebox[currentPlayer].textContent = validScores[validScores.length-1];
         return true;
     }
+}
+
+reset = () =>{
+    
+
+
+    
+    cards = [];
+    playersCards = [[], []];
+    scores = [[0,0,0,0,0],[0,0,0,0,0]];
+    buildDeck();
+    cardAreas[0].innerHTML= "";
+    cardAreas[1].innerHTML ="";
+    document.getElementsByClassName('playerScore')[0].textContent = 0;
+    document.getElementsByClassName('playerScore')[1].textContent = 0;
+    document.getElementsByClassName('playerStatus')[0].textContent = '';
+    document.getElementsByClassName('playerStatus')[1].textContent = '';
+    currentPlayer=1;
 }
 
 updateScore = ()=> {
