@@ -7,7 +7,7 @@
     <title>Black Jack by Ian Williamson</title>
     <link rel="stylesheet" href="./styles/blackJack.css">
 </head>
-<body onload="()=>{buildDeck();}">
+<body >
     <gameTable>
         <player id="playerOne">
            
@@ -16,7 +16,7 @@
                     <name>Cash</name>
                     <amount>£100</amount>
                 </pot>
-                <control>hit</control>
+                <reserveSpace></reserveSpace>
                 <reserveSpace></reserveSpace>
                 <control>stand</control>
                 <pot>
@@ -27,7 +27,7 @@
             </stakes>
             <div class="notice">Player 2</div>
             
-            <Cards></Cards>
+            <cards></cards>
         </player>
 
         <player id="playerTwo">
@@ -37,7 +37,7 @@
                     <name>Cash</name>
                     <amount>£100</amount>
                 </pot>
-                <control>hit</control>
+                <reserveSpace></reserveSpace>
                 <reserveSpace></reserveSpace>
                 <control>stand</control>
                 <pot>
@@ -46,10 +46,10 @@
                 </pot>
             </stakes>
             <div class="notice">Player 1</div>
-            <Cards>
-                <img src="./images/2B.svg">
+            <cards>
                 
-            </Cards>
+                
+            </cards>
         </player>
         
     </gameTable>

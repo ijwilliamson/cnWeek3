@@ -16,26 +16,48 @@ class card {
     }    
 }
 
-//consts
+//Initial Constants
 const suits = ["C","S","H","D"];
 const cardNumbers = ["A","2-9","T","J","Q","K"];
+
+//UI Constants
+const playerAreas = [document.getElementsByTagName('player')[0],
+                     document.getElementsByTagName('player')[1]];
+   
+
+const cardAreas = [document.getElementsByTagName('cards')[0],
+                   document.getElementsByTagName('cards')[1]];
+
+
+const standButton = [document.getElementsByTagName('control')[0],
+                   document.getElementsByTagName('control')[1]];
+
+const deck = document.querySelector('cardDeck img');
+
 
 // variables
 let cards = [];
 let scores = [0,0];
 let cash = [100,100];
 let bet = 0;
-let currentPlayer = 0;  //0: player One, 1: player 2
-let playersCards= Array[[],[]]; //cannot think of a way to pre define
+let currentPlayer = 1;  //0: player One, 1: player 2
+let playersCards =  [[],[]]; //cannot think of a way to pre define
 
 //Events
-document.addEventListener('DOMContentLoaded',()=> buildDeck());
+document.addEventListener('DOMContentLoaded',()=> pageLoad());
+deck.addEventListener('click', () => hitACard());
+
+standButton.forEach((button) => {
+    button.addEventListener('click', () => standClicked());
+});
 
 
+//initial game setup
 pageLoad = () =>{
     buildDeck();
 }
 
+// building the Deck using buildDeck and addCardToDeck
 buildDeck = ()=>{
     //loop though each suit with inner loop of cardNumbers
     //add a card with value for each cardNumber and each suit
@@ -63,13 +85,47 @@ buildDeck = ()=>{
             }
         })
     })
-    console.table(cards);
+  
 }
 
 addCardToDeck = (num, suit, val) => {
     cards.push(new card(num+suit,val,false));
 }
-  
+
+//Get a random unplayed card
+hitACard = () =>{
+    let randomCard = null;
+    do{
+        i = Math.floor(Math.random(1)*52);
+        randomCard = cards[i];
+    
+    } while(randomCard.played)
+
+        
+    //play card on the table
+    newCard = document.createElement('img');
+    newCard.src = "./images/" + randomCard.imgSrc + ".svg";
+    cardAreas[currentPlayer].appendChild(newCard);
+    randomCard.played = true;
+    playersCards[currentPlayer].push(randomCard);
+    //TODO - check score
+    //TODO - display score
+
+}
+
+//stand clicked
+standClicked = ()=> {
+    
+    if (player = 0){
+        //TODO - calc winner
+    } else {
+        currentPlayer -=1;   
+    }
+    
+
+}
+
+
 
 
 
