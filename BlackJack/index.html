@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Jack by Ian Williamson</title>
+    <link rel="stylesheet" href="./styles/blackJack.css">
+</head>
+<body>
+    <gameTable>
+        <player id="playerOne">
+           
+            <stakes>
+                <pot>
+                    <name>Cash</name>
+                    <amount>£100</amount>
+                </pot>
+                <control>hit</control>
+                <reserveSpace></reserveSpace>
+                <control>stand</control>
+                <pot>
+                    <name>Bet</name>
+                    
+                    <amount>£100</amount>
+                </pot>
+            </stakes>
+            <div class="notice">Player 2</div>
+            
+            <Cards></Cards>
+        </player>
+
+        <player id="playerTwo">
+           
+            <stakes>
+                <pot>
+                    <name>Cash</name>
+                    <amount>£100</amount>
+                </pot>
+                <control>hit</control>
+                <reserveSpace></reserveSpace>
+                <control>stand</control>
+                <pot>
+                    <name>Bet</name>
+                    <amount>£100</amount>
+                </pot>
+            </stakes>
+            <div class="notice">Player 1</div>
+            <Cards>
+                <img src="./images/2B.svg">
+                
+            </Cards>
+        </player>
+        
+    </gameTable>
+    <cardDeck>
+        <img src="./images/1B.svg" height="100%">
+    </cardDeck>
+    <!-- Nothing beyond this line -->
+    <script src="./scripts/blackjack.js"></script>
+</body>
+</html>
