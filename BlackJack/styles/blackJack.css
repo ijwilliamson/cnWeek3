@@ -140,6 +140,10 @@ player stakes control{
     
 }
 
+player stakes control:hover{
+    cursor: pointer;
+}
+
 @media (min-width:450px){
     player stakes pot amount{font-size:.7em;}
     player stakes pot name {font-size: .8em;}
@@ -167,6 +171,7 @@ player stakes control{
 
 player cards{
     display:flex;
+    justify-content: center;
     background-color: var(--subtleBrown);
     height:var(--CardHeight);
     width:100%;
@@ -193,6 +198,9 @@ cardDeck{
     top: calc(50% - var(--DeckTop));
     left:0px;
     background-color: #23232320;
-    width:100%;
+    width: calc(var(--CardHeight) / 1.6);
+    margin-left:auto;
+    margin-right:auto;
+    
 }
 
