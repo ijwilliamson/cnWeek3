@@ -152,6 +152,10 @@ checkScore = ()=> {
     //check possible scores of current player
     //loop for each ace using 11 and 1
     //return true if valid score
+
+    
+
+
 }
 
 calculateWinner = ()=> {
