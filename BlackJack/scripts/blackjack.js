@@ -13,8 +13,7 @@ class card {
         this.value = value;
         this.played = played;
 
-    }    
-}
+    }}
 
 //Initial Constants
 const suits = ["C","S","H","D"];
@@ -110,7 +109,6 @@ buildDeck = ()=>{
             }
         })
     })
-  
 }
 
 addCardToDeck = (num, suit, val) => {
@@ -118,14 +116,25 @@ addCardToDeck = (num, suit, val) => {
 }
 
 //Get a random unplayed card
+
+// hitACard UnitTest
+// testCards = [0,3,8,13]
+// testId = 0;
+// to here
 hitACard = () =>{
+    
+    //unit test
+    // randomCard = cards[testCards[testId]];
+    // testId +=1;
+    
+    // deactivated for unit test //
     let randomCard = null;
     do{
         i = Math.floor(Math.random(1)*52);
         randomCard = cards[i];
     
     } while(randomCard.played)
-
+    // to here
         
     //play card on the table
     newCard = document.createElement('img');
@@ -133,19 +142,32 @@ hitACard = () =>{
     cardAreas[currentPlayer].appendChild(newCard);
     randomCard.played = true;
     playersCards[currentPlayer].push(randomCard);
-    //TODO - check score
-    //TODO - display score
-
+    if(checkScore()){
+        updateScore();
+    } else {
+        if(currentPlayer === 1){
+            switchPlayer
+        } else {
+            calculateWinner();
+        }
+        
+    }
 }
 
 //stand clicked
 standClicked = ()=> {
     
     if (player = 0){
-        //TODO - calc winner
+        calculateWinner();
     } else {
-        currentPlayer -=1;   
+        switchPlayer();   
     }
+}
+
+switchPlayer = () => {
+    currentPlayer -=1;
+    //change active stand button
+    //change opacity of the player
 }
 
 checkScore = ()=> {
@@ -153,8 +175,43 @@ checkScore = ()=> {
     //loop for each ace using 11 and 1
     //return true if valid score
 
-    
+    tempCardValues = [];
+    playersCards[currentPlayer].forEach((card) =>{
+        tempCardValues.push(card.value);
+    })
+    let i=0;
+    do{
+        //sum the card values
+        scores[currentPlayer][i] = tempCardValues.reduce((a, b) => a + b, 0);
 
+        //check if there is an ace reduce ace to 1 and store another score
+        if (tempCardValues.includes(11)){
+            i +=1;
+            ace = tempCardValues.findIndex( val => val === 11);
+            tempCardValues[ace] = 1;
+        } else {
+            i=-1;
+        }
+    } while (i>0)
+
+    actualScores = scores[currentPlayer].filter(value => value > 0);
+    validScores = actualScores.filter(value => value<=21);
+    if (validScores.length === 0){
+        actualScores.sort();
+        document.querySelectorAll('player .playerScore')[currentPlayer].textContent = 
+                                                                actualScores[0].toString();
+        document.querySelectorAll('player .playerStatus')[currentPlayer].textContent =
+        "Bust";
+        return false;
+    } else {
+        validScores.sort((a,b) => {return a - b});
+        scorebox = document.querySelectorAll('player .playerScore')
+        scorebox[currentPlayer].textContent = validScores[validScores.length-1];
+        return true;
+    }
+}
+
+updateScore = ()=> {
 
 }
 

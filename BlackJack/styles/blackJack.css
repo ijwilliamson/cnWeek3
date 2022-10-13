@@ -165,18 +165,12 @@ player stakes control:hover{
 
 }
 
-
-
-
-
 player cards{
     display:flex;
     justify-content: center;
     background-color: var(--subtleBrown);
     height:var(--CardHeight);
     width:100%;
-    
-    
 }
 
 player cards img{
