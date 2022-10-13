@@ -35,13 +35,21 @@ const standButton = [document.getElementsByTagName('control')[0],
 const deck = document.querySelector('cardDeck img');
 
 
+
 // variables
-let cards = [];
-let scores = [0,0];
+
+// **** Very important ****
+// Player 1 is second in the HTML hiarachy and so has an Id of 1.
+// Player 0 is first and so has an Id of 0.
+// The game begins with Player 1 and so has an Id of 1 not 0.
+let currentPlayer = 1;
+
+let cards = [];  
+let playersCards =  [[],[]]; //cannot think of a way to pre define
+let scores = [[0,0,0,0,0],[0,0,0,0,0]]; //possible score options
 let cash = [100,100];
 let bet = 0;
-let currentPlayer = 1;  //0: player One, 1: player 2
-let playersCards =  [[],[]]; //cannot think of a way to pre define
+
 
 //Events
 document.addEventListener('DOMContentLoaded',()=> pageLoad());
@@ -55,6 +63,23 @@ standButton.forEach((button) => {
 //initial game setup
 pageLoad = () =>{
     buildDeck();
+    //TODO : Create overlay with options for:
+    //          one and two players
+    //          starting cash
+    //          minimum bet
+    //          number of rounds (5, 10 ,15, 20, infinate)
+    //          Start Game button
+
+    //          Hide 
+
+    //          Add a round counter
+    //          After a game, have a new round popup
+    //          set a bet amount
+    //          fix bet and draw first card
+    //          
+    //          in two player mode, winner goes first
+    //          
+
 }
 
 // building the Deck using buildDeck and addCardToDeck
@@ -121,11 +146,21 @@ standClicked = ()=> {
     } else {
         currentPlayer -=1;   
     }
-    
-
 }
 
+checkScore = ()=> {
+    //check possible scores of current player
+    //loop for each ace using 11 and 1
+    //return true if valid score
+}
 
+calculateWinner = ()=> {
+    //check score
+    //possible score wins
+    //award cash to the winner
+    //remove cash from the looser
+
+}
 
 
 
