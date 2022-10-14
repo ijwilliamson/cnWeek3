@@ -26,7 +26,7 @@
                 </pot>
             </stakes>
             <info>
-                <div class="playerName">Player 1</div>
+                <div class="playerName">Player 2</div>
                 <div class="playerScore">00</div>
                 <div class="playerStatus"></div>
             </info>
@@ -64,6 +64,43 @@
     <cardDeck>
         <img src="./images/1B.svg" height="100%">
     </cardDeck>
+
+    <winnerOverlay class="removed">
+        <p>Player 1 Wins</p>
+        <p>Player 1 receives £10</p>
+        <p>Click for a new round</p>
+    </winnerOverlay>
+
+    <startOverlay>
+        <h1>Black Jack</h1>
+        
+            <ul id="playerNumber">
+                <li class="selected">1 Player</li>
+                <li>2 Player</li>
+            </ul>
+           
+        
+        <p>Starting Cash</p>
+        <ul id="startingCash">
+            <li>£25</li>
+            <li>£50</li>
+            <li>£75</li>
+            <li class="selected">£100</li>
+        </ul>
+        <p>Number of Rounds</p>
+        <ul id="rounds">
+            <li>5</li>
+            <li class="selected">10</li>
+            <li>15</li>
+            <li>20</li>
+            <li>Infinite</li>
+        </ul>
+        <ul>
+            <li id="startGame">Start Game</li>
+        </ul>
+    </startOverlay>
+
+
     <!-- Nothing beyond this line -->
     <script src="./scripts/blackjack.js"></script>
 </body>

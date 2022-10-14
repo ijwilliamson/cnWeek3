@@ -51,8 +51,6 @@
     }
 }
 
-
-
 body {
     width:100vw;
     height:100vh;
@@ -61,8 +59,7 @@ body {
     padding:0px;
     overflow: hidden;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    
-}
+ }
 
 gameTable{
     display:block;
@@ -162,7 +159,6 @@ player stakes control:hover{
         height:25%;
         width: 50px;
         font-size:.7em;}
-
 }
 
 player cards{
@@ -205,3 +201,75 @@ cardDeck{
     
 }
 
+winnerOverlay, startOverlay{
+    position:absolute;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top:0px;
+    left:0px;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    background-color: #00000077;
+    font-size: 2em;
+}
+
+winnerOverlay p{
+    background-color: black;
+    margin: 0px;
+    width:50%;
+    text-align: center;
+    padding:10px;
+}
+
+startOverlay h1{
+    font-size: 2em;
+}
+
+startOverlay p{
+    font-size: 1em;
+    margin-bottom: .1em;
+}
+
+startOverlay{
+    background-color: #000000DD;
+}
+
+startOverlay ul{
+    padding:0px;
+    display: flex;
+    align-items: stretch;
+    margin-top:.1em;
+}
+
+startOverlay li{
+    background-color: var(--subtleBrown);
+    margin:10px;
+    padding-left:10px;
+    padding-right:10px;
+    display: block;
+    border-radius: 10px;
+    font-size:.75em;
+    line-height: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    box-shadow: inset 0 0 .2em black;
+}
+
+startOverlay li:hover{
+    background-color: rgb(201, 142, 6);
+}
+
+.selected{
+    background-color: rgb(201, 64, 6);
+}
+.selected:hover{
+    background-color: rgb(201, 64, 6);
+}
+
+
+.removed{
+    display:none;
+}
