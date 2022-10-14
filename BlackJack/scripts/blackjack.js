@@ -33,8 +33,8 @@ const standButton = [document.getElementsByTagName('control')[0],
 
 const deck = document.querySelector('cardDeck img');
 
-
-
+const winnerOverlay = document.querySelector('winnerOverlay');
+const startButton = document.getElementById('startGame');
 // variables
 
 // **** Very important ****
@@ -48,8 +48,16 @@ let playersCards =  [[],[]]; //cannot think of a way to pre define
 let scores = [[0,0,0,0,0],[0,0,0,0,0]]; //possible score options
 let cash = [100,100];
 let bet = 0;
+let totalRounds = 5;
+let gametype = 1; //0: 1Player, 1: 2Player
 
+let playerNumberOptions = document.querySelectorAll('#playerNumber li');
+let startingCashOptions = document.querySelectorAll('#startingCash li');
+let roundOptions = document.querySelectorAll('#rounds li');
 
+console.log(playerNumberOptions);
+console.log(startingCashOptions);
+console.log(roundOptions);
 
 //Events
 document.addEventListener('DOMContentLoaded',()=> pageLoad());
@@ -58,6 +66,22 @@ deck.addEventListener('click', () => hitACard());
 standButton.forEach((button) => {
     button.addEventListener('click', () => standClicked());
 });
+
+winnerOverlay.addEventListener('click', () => reset());
+
+playerNumberOptions.forEach((li) => {
+    li.addEventListener('click', (args)=> optionSelected('player',args))
+})
+
+startingCashOptions.forEach((li) => {
+    li.addEventListener('click', (args)=> optionSelected('cash',args))
+})
+
+roundOptions.forEach((li) => {
+    li.addEventListener('click', (args)=> optionSelected('rounds',args))
+})
+
+startButton.addEventListener('click', ()=> )
 
 
 //initial game setup
@@ -116,6 +140,33 @@ addCardToDeck = (num, suit, val) => {
     cards.push(new card(num+suit,val,false));
 }
 
+optionSelected = (cat,args)=>{
+ //cat player, cash, round
+    selectedItemText = args.path[0].textContent;
+    switch(cat){
+        case 'player':
+            playerNumberOptions.forEach((li) => 
+                optionLiSet(li,selectedItemText));
+            break;
+        case 'cash':
+            startingCashOptions.forEach((li) => 
+                optionLiSet(li,selectedItemText));
+        break;
+        case 'rounds':
+            roundOptions.forEach((li) => 
+                optionLiSet(li,selectedItemText));
+        break;
+
+    }
+}
+optionLiSet = (li,val)=>{
+    li.className='';
+    if (li.textContent === val){
+        li.classList.add('selected')
+    } 
+}
+
+
 //Get a random unplayed card
 
 // hitACard UnitTest
@@ -144,7 +195,7 @@ hitACard = () =>{
     randomCard.played = true;
     playersCards[currentPlayer].push(randomCard);
     if(checkScore()){
-        updateScore();
+        
     } else {
         if(currentPlayer === 1){
             switchPlayer
@@ -203,8 +254,7 @@ checkScore = ()=> {
                                                                 actualScores[0].toString();
         document.querySelectorAll('player .playerStatus')[currentPlayer].textContent =
         "Bust";
-        //TODO insert screen for new round to be called from here.
-        reset();
+        calculateWinner(false);
         return false;
     } else {
         validScores.sort((a,b) => {return a - b});
@@ -215,10 +265,6 @@ checkScore = ()=> {
 }
 
 reset = () =>{
-    
-
-
-    
     cards = [];
     playersCards = [[], []];
     scores = [[0,0,0,0,0],[0,0,0,0,0]];
@@ -230,18 +276,22 @@ reset = () =>{
     document.getElementsByClassName('playerStatus')[0].textContent = '';
     document.getElementsByClassName('playerStatus')[1].textContent = '';
     currentPlayer=1;
+    winnerOverlay.classList.add('removed');
 }
 
-updateScore = ()=> {
 
-}
 
-calculateWinner = ()=> {
+calculateWinner = (status)=> {
+    
+    
+
+
+    
     //check score
     //possible score wins
     //award cash to the winner
     //remove cash from the looser
-
+    winnerOverlay.classList.remove('removed');
 }
 
 
