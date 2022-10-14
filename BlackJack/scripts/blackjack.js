@@ -60,7 +60,7 @@ console.log(startingCashOptions);
 console.log(roundOptions);
 
 //Events
-document.addEventListener('DOMContentLoaded',()=> pageLoad());
+
 deck.addEventListener('click', () => hitACard());
 
 standButton.forEach((button) => {
@@ -81,29 +81,67 @@ roundOptions.forEach((li) => {
     li.addEventListener('click', (args)=> optionSelected('rounds',args))
 })
 
-startButton.addEventListener('click', ()=> )
+startButton.addEventListener('click', ()=> beginNewGame());
 
 
-//initial game setup
-pageLoad = () =>{
+//Game Flow
+beginNewGame = () => {
+
+    reset();
+    setInitValues();
+
+
+
+}
+
+
+//Game Functions
+
+
+reset = () =>{
+    //reset the game values.
+    cards = [];
+    playersCards = [[], []];
+    scores = [[0,0,0,0,0],[0,0,0,0,0]];
     buildDeck();
-    //TODO : Create overlay with options for:
-    //          one and two players
-    //          starting cash
-    //          minimum bet
-    //          number of rounds (5, 10 ,15, 20, infinate)
-    //          Start Game button
+    cardAreas[0].innerHTML= "";
+    cardAreas[1].innerHTML ="";
+    document.getElementsByClassName('playerScore')[0].textContent = 0;
+    document.getElementsByClassName('playerScore')[1].textContent = 0;
+    document.getElementsByClassName('playerStatus')[0].textContent = '';
+    document.getElementsByClassName('playerStatus')[1].textContent = '';
+    currentPlayer=1;
+    winnerOverlay.classList.add('removed');
+}
 
-    //          Hide 
+setInitValues = () =>{
+    //set the game values to those chosen on the start screen
+    gametype = getGameType();
+    cash = getStartingCash();
+    totalRounds = getTotalRounds();
+}
 
-    //          Add a round counter
-    //          After a game, have a new round popup
-    //          set a bet amount
-    //          fix bet and draw first card
-    //          
-    //          in two player mode, winner goes first
-    //          
+getGameType = () =>{
+   option = Array.from(playerNumberOptions).find(
+                    element => element.className === "selected")
+    return parseInt(option.textContent.charAt(0))-1;
+}
 
+getStartingCash = () =>{
+    option = Array.from(startingCashOptions).find(
+        element => element.className === "selected")
+    amount = parseInt(option.textContent.substring(1));
+    return [amount,amount];
+}
+
+getTotalRounds = () =>{
+    option = Array.from(roundOptions).find(
+        element => element.className === "selected")
+    if(option.textContent === "Infinite"){
+        return 9999;
+    } else {
+        return parseInt(option.textContent); 
+    }
 }
 
 // building the Deck using buildDeck and addCardToDeck
@@ -264,20 +302,7 @@ checkScore = ()=> {
     }
 }
 
-reset = () =>{
-    cards = [];
-    playersCards = [[], []];
-    scores = [[0,0,0,0,0],[0,0,0,0,0]];
-    buildDeck();
-    cardAreas[0].innerHTML= "";
-    cardAreas[1].innerHTML ="";
-    document.getElementsByClassName('playerScore')[0].textContent = 0;
-    document.getElementsByClassName('playerScore')[1].textContent = 0;
-    document.getElementsByClassName('playerStatus')[0].textContent = '';
-    document.getElementsByClassName('playerStatus')[1].textContent = '';
-    currentPlayer=1;
-    winnerOverlay.classList.add('removed');
-}
+
 
 
 
