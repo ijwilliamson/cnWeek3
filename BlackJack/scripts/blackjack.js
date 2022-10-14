@@ -72,10 +72,10 @@ console.log(roundOptions);
 
 //Events
 
-deck.addEventListener('click', () => hitACard());
+deck.addEventListener('click', () => hitACardAiFix());
 
 standButton.forEach((button) => {
-    button.addEventListener('click', () => standClicked());
+    button.addEventListener('click', () => standAiFix());
 });
 
 winnerOverlay.addEventListener('click', () => reset());
@@ -240,10 +240,27 @@ optionLiSet = (li,val)=>{
 
 //Game play
 
-//Get a random unplayed card
+hitACardAiFix = ()=>{
+    if(gametype === 0 && currentPlayer === 0){
+        //stop players from giving the ai extra cards
+        return;
+    } else {
+        hitACard();
+    }
+}
 
+standAiFix = ()=>{
+    if(gametype === 0 && currentPlayer === 0){
+        //stop players from standing the AI
+        return;
+    } else {
+        standClicked();
+    }
+}
+
+//Get a random unplayed card
 hitACard = () =>{
-    
+   
     let randomCard = null;
     do{
         i = Math.floor(Math.random(1)*52);
