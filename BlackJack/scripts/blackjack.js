@@ -244,7 +244,6 @@ optionLiSet = (li,val)=>{
 
 hitACard = () =>{
     
-    
     let randomCard = null;
     do{
         i = Math.floor(Math.random(1)*52);
@@ -256,16 +255,28 @@ hitACard = () =>{
     placeCard(randomCard);
     standButton[currentPlayer].classList.remove('removed');
     
-    if(checkScore()){
-        
+
+    newScore = checkScore()
+    updatePlayerScore(newScore)
+    if(newScore <= 21){
+        //player can continue and no action is required.
     } else {
-        if(currentPlayer === 1){
-            switchPlayer
-        } else {
-            calculateWinner();
-        }
-        
+        //player is bust
+        markPlayerBust();
     }
+}
+
+updatePlayerScore = (newScore) => {
+    scorebox = document.querySelectorAll('player .playerScore')
+    scorebox[currentPlayer].textContent = newScore;
+}
+
+
+markPlayerBust = () => {
+    //TODO: needs improving
+    document.querySelectorAll('player .playerStatus')[currentPlayer].textContent =
+        "Bust";
+calculateWinner(0-(currentPlayer+1));
 }
 
 placeCard = (randomCard) => {
@@ -280,14 +291,15 @@ placeCard = (randomCard) => {
 //stand clicked
 standClicked = ()=> {
     
-    if (player = 0){
-        calculateWinner();
+    if (currentPlayer === 0){
+        calculateWinner(0);
     } else {
         switchPlayer();   
     }
 }
 
 switchPlayer = () => {
+    standButton[1].classList.add('removed');
     currentPlayer -=1;
     //change active stand button
     //change opacity of the player
@@ -319,19 +331,13 @@ checkScore = ()=> {
 
     actualScores = scores[currentPlayer].filter(value => value > 0);
     validScores = actualScores.filter(value => value<=21);
+    
     if (validScores.length === 0){
         actualScores.sort();
-        document.querySelectorAll('player .playerScore')[currentPlayer].textContent = 
-                                                                actualScores[0].toString();
-        document.querySelectorAll('player .playerStatus')[currentPlayer].textContent =
-        "Bust";
-        calculateWinner(false);
-        return false;
+        return actualScores[0];
     } else {
         validScores.sort((a,b) => {return a - b});
-        scorebox = document.querySelectorAll('player .playerScore')
-        scorebox[currentPlayer].textContent = validScores[validScores.length-1];
-        return true;
+        return validScores[validScores.length-1];
     }
 }
 
@@ -340,7 +346,12 @@ checkScore = ()=> {
 
 
 calculateWinner = (status)=> {
-    
+    //2 player 1 wins
+    //1 player 2 wins
+    //0 both players stuck, check scores
+    //-1 player 2 bust
+    //-2 player 1 bust
+
     
 
 
