@@ -61,6 +61,11 @@ body {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
  }
 
+.status{
+    position: absolute;
+    color:white;
+}
+
 gameTable{
     display:block;
     min-width:calc(100vw - (var(--BoardMargin) * 2) );
@@ -201,7 +206,7 @@ cardDeck{
     
 }
 
-winnerOverlay, startOverlay{
+winnerOverlay, startOverlay, endOverlay{
     position:absolute;
     display:flex;
     flex-direction: column;
@@ -216,7 +221,7 @@ winnerOverlay, startOverlay{
     font-size: 2em;
 }
 
-winnerOverlay p{
+winnerOverlay p, endOverlay p{
     background-color: black;
     margin: 0px;
     width:50%;
