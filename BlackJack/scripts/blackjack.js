@@ -256,7 +256,7 @@ hitACard = () =>{
     standButton[currentPlayer].classList.remove('removed');
     
 
-    newScore = checkScore()
+    newScore = checkScore(currentPlayer)
     updatePlayerScore(newScore)
     if(newScore <= 21){
         //player can continue and no action is required.
@@ -276,7 +276,7 @@ markPlayerBust = () => {
     //TODO: needs improving
     document.querySelectorAll('player .playerStatus')[currentPlayer].textContent =
         "Bust";
-calculateWinner(0-(currentPlayer+1));
+calculateWinner(currentPlayer);
 }
 
 placeCard = (randomCard) => {
@@ -292,7 +292,7 @@ placeCard = (randomCard) => {
 standClicked = ()=> {
     
     if (currentPlayer === 0){
-        calculateWinner(0);
+        calculateWinner(-1);
     } else {
         switchPlayer();   
     }
@@ -305,19 +305,19 @@ switchPlayer = () => {
     //change opacity of the player
 }
 
-checkScore = ()=> {
+checkScore = (player)=> {
     //check possible scores of current player
     //loop for each ace using 11 and 1
     //return true if valid score
 
     let tempCardValues = [];
-    playersCards[currentPlayer].forEach((card) =>{
+    playersCards[player].forEach((card) =>{
         tempCardValues.push(card.value);
     })
     let i=0;
     do{
         //sum the card values
-        scores[currentPlayer][i] = tempCardValues.reduce((a, b) => a + b, 0);
+        scores[player][i] = tempCardValues.reduce((a, b) => a + b, 0);
 
         //check if there is an ace reduce ace to 1 and store another score
         if (tempCardValues.includes(11)){
@@ -329,7 +329,7 @@ checkScore = ()=> {
         }
     } while (i>0)
 
-    actualScores = scores[currentPlayer].filter(value => value > 0);
+    actualScores = scores[player].filter(value => value > 0);
     validScores = actualScores.filter(value => value<=21);
     
     if (validScores.length === 0){
@@ -341,27 +341,37 @@ checkScore = ()=> {
     }
 }
 
-
-
-
-
 calculateWinner = (status)=> {
-    //2 player 1 wins
+    //0 player 1 wins
     //1 player 2 wins
-    //0 both players stuck, check scores
-    //-1 player 2 bust
-    //-2 player 1 bust
-
+    //-1 both players stuck, check scores
     
 
+    let winningPlayer = 0;
 
+    if (status >= 0){
+        //a player is bust.  No need to check scores.
+        winningPlayer = (status === 0) ? 1 : 0;
     
-    //check score
-    //possible score wins
-    //award cash to the winner
-    //remove cash from the looser
+    } else{
+        winningPlayer = (checkScore(1)>checkScore(0))? 1 : 0;
+    }
+
+     cash[1] += (winningPlayer === 1) ? bet : 0-bet;
+     cash[0] += (winningPlayer === 0) ? bet : 0-bet;
+    
+    updateUI();
+
+    winningPlayer = (winningPlayer === 0) ? 2 : 1;
+
+    winnerOverlay.innerHTML=
+    `<p>Player ${winningPlayer} Wins</p>`+
+    `<p>Player ${winningPlayer} receives £${bet}</p>` +
+    `<p>Click for the next round</p>`
+
     winnerOverlay.classList.remove('removed');
 }
+
 
 
 
