@@ -294,7 +294,11 @@ standClicked = ()=> {
     if (currentPlayer === 0){
         calculateWinner(-1);
     } else {
-        switchPlayer();   
+
+        switchPlayer();
+        if (gametype===0){
+            onePlayerAi();
+        }
     }
 }
 
@@ -305,12 +309,42 @@ switchPlayer = () => {
     //change opacity of the player
 }
 
+onePlayerAi = () => {
+    Timer(true);
+   
+}
+AiTimer = 0;
+
+Timer = (val) => {
+    if (val) {
+        AiTimer = setInterval(AiDrawACard,300)
+    } else{
+         clearInterval(AiTimer);
+    }
+}
+
+AiDrawACard = () => {
+    p2s = checkScore(0);
+    p1s = checkScore(1);
+    if (typeof(p2s) === "undefined") {
+        p2s = 0;
+    }
+    if (p2s < p1s){
+        hitACard();
+    } else if (p2s<=21) {
+        Timer(false);
+        standClicked();
+    }
+}
+
+
 checkScore = (player)=> {
     //check possible scores of current player
     //loop for each ace using 11 and 1
     //return true if valid score
 
     let tempCardValues = [];
+   
     playersCards[player].forEach((card) =>{
         tempCardValues.push(card.value);
     })
@@ -345,8 +379,8 @@ calculateWinner = (status)=> {
     //0 player 1 wins
     //1 player 2 wins
     //-1 both players stuck, check scores
-    
-
+    clearInterval(AiTimer);
+    console.log(AiTimer);
     let winningPlayer = 0;
 
     if (status >= 0){
