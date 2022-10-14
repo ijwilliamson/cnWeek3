@@ -15,6 +15,8 @@ class card {
 
     }}
 
+
+
 //Initial Constants
 const suits = ["C","S","H","D"];
 const cardNumbers = ["A","2-9","T","J","Q","K"];
@@ -23,9 +25,14 @@ const cardNumbers = ["A","2-9","T","J","Q","K"];
 const playerAreas = [document.getElementsByTagName('player')[0],
                      document.getElementsByTagName('player')[1]];
    
+const playerAmounts = document.getElementsByTagName('amount');
+
+
+
 
 const cardAreas = [document.getElementsByTagName('cards')[0],
                    document.getElementsByTagName('cards')[1]];
+
 
 
 const standButton = [document.getElementsByTagName('control')[0],
@@ -34,7 +41,14 @@ const standButton = [document.getElementsByTagName('control')[0],
 const deck = document.querySelector('cardDeck img');
 
 const winnerOverlay = document.querySelector('winnerOverlay');
+const startScreen = document.querySelector('startOverlay');
 const startButton = document.getElementById('startGame');
+
+let playerNumberOptions = document.querySelectorAll('#playerNumber li');
+let startingCashOptions = document.querySelectorAll('#startingCash li');
+let roundOptions = document.querySelectorAll('#rounds li');
+
+
 // variables
 
 // **** Very important ****
@@ -47,13 +61,10 @@ let cards = [];
 let playersCards =  [[],[]]; //cannot think of a way to pre define
 let scores = [[0,0,0,0,0],[0,0,0,0,0]]; //possible score options
 let cash = [100,100];
-let bet = 0;
+let bet = 5;
 let totalRounds = 5;
 let gametype = 1; //0: 1Player, 1: 2Player
 
-let playerNumberOptions = document.querySelectorAll('#playerNumber li');
-let startingCashOptions = document.querySelectorAll('#startingCash li');
-let roundOptions = document.querySelectorAll('#rounds li');
 
 console.log(playerNumberOptions);
 console.log(startingCashOptions);
@@ -89,8 +100,9 @@ beginNewGame = () => {
 
     reset();
     setInitValues();
-
-
+    startScreenVisible(false);
+    updateUI();
+    //Game becomes event driven by the user until a winner emerges
 
 }
 
@@ -112,6 +124,8 @@ reset = () =>{
     document.getElementsByClassName('playerStatus')[1].textContent = '';
     currentPlayer=1;
     winnerOverlay.classList.add('removed');
+    standButton[0].classList.add('removed');
+    standButton[1].classList.add('removed');
 }
 
 setInitValues = () =>{
@@ -119,29 +133,6 @@ setInitValues = () =>{
     gametype = getGameType();
     cash = getStartingCash();
     totalRounds = getTotalRounds();
-}
-
-getGameType = () =>{
-   option = Array.from(playerNumberOptions).find(
-                    element => element.className === "selected")
-    return parseInt(option.textContent.charAt(0))-1;
-}
-
-getStartingCash = () =>{
-    option = Array.from(startingCashOptions).find(
-        element => element.className === "selected")
-    amount = parseInt(option.textContent.substring(1));
-    return [amount,amount];
-}
-
-getTotalRounds = () =>{
-    option = Array.from(roundOptions).find(
-        element => element.className === "selected")
-    if(option.textContent === "Infinite"){
-        return 9999;
-    } else {
-        return parseInt(option.textContent); 
-    }
 }
 
 // building the Deck using buildDeck and addCardToDeck
@@ -178,25 +169,68 @@ addCardToDeck = (num, suit, val) => {
     cards.push(new card(num+suit,val,false));
 }
 
-optionSelected = (cat,args)=>{
- //cat player, cash, round
-    selectedItemText = args.path[0].textContent;
-    switch(cat){
-        case 'player':
-            playerNumberOptions.forEach((li) => 
-                optionLiSet(li,selectedItemText));
-            break;
-        case 'cash':
-            startingCashOptions.forEach((li) => 
-                optionLiSet(li,selectedItemText));
-        break;
-        case 'rounds':
-            roundOptions.forEach((li) => 
-                optionLiSet(li,selectedItemText));
-        break;
+updateUI = () =>{
+    playerAmounts[0].textContent = `£${cash[0]}`
+    playerAmounts[2].textContent = `£${cash[1]}`
+    playerAmounts[1].textContent = `£${bet}`
+    playerAmounts[3].textContent = `£${bet}`
 
+    //set Player 1 Score
+    //set Player 2 Score
+    //set Player 1 State (Bust Stopped)
+    //set Player 2 State
+}
+
+getGameType = () =>{
+   option = Array.from(playerNumberOptions).find(
+                    element => element.className === "selected")
+    return parseInt(option.textContent.charAt(0))-1;
+}
+
+getStartingCash = () =>{
+    option = Array.from(startingCashOptions).find(
+        element => element.className === "selected")
+    amount = parseInt(option.textContent.substring(1));
+    return [amount,amount];
+}
+
+getTotalRounds = () =>{
+    option = Array.from(roundOptions).find(
+        element => element.className === "selected")
+    if(option.textContent === "Infinite"){
+        return 9999;
+    } else {
+        return parseInt(option.textContent); 
     }
 }
+
+startScreenVisible = (visible) =>{
+    if (visible) {
+        startScreen.className=""
+    } else {
+        startScreen.classList.add('removed')
+    }
+}
+
+optionSelected = (cat,args)=>{
+    //cat player, cash, round
+       selectedItemText = args.path[0].textContent;
+       switch(cat){
+           case 'player':
+               playerNumberOptions.forEach((li) => 
+                   optionLiSet(li,selectedItemText));
+               break;
+           case 'cash':
+               startingCashOptions.forEach((li) => 
+                   optionLiSet(li,selectedItemText));
+           break;
+           case 'rounds':
+               roundOptions.forEach((li) => 
+                   optionLiSet(li,selectedItemText));
+           break;
+   
+       }
+   }
 optionLiSet = (li,val)=>{
     li.className='';
     if (li.textContent === val){
@@ -204,20 +238,13 @@ optionLiSet = (li,val)=>{
     } 
 }
 
+//Game play
 
 //Get a random unplayed card
 
-// hitACard UnitTest
-// testCards = [0,3,8,13]
-// testId = 0;
-// to here
 hitACard = () =>{
     
-    //unit test
-    // randomCard = cards[testCards[testId]];
-    // testId +=1;
     
-    // deactivated for unit test //
     let randomCard = null;
     do{
         i = Math.floor(Math.random(1)*52);
@@ -226,12 +253,9 @@ hitACard = () =>{
     } while(randomCard.played)
     // to here
         
-    //play card on the table
-    newCard = document.createElement('img');
-    newCard.src = "./images/" + randomCard.imgSrc + ".svg";
-    cardAreas[currentPlayer].appendChild(newCard);
-    randomCard.played = true;
-    playersCards[currentPlayer].push(randomCard);
+    placeCard(randomCard);
+    standButton[currentPlayer].classList.remove('removed');
+    
     if(checkScore()){
         
     } else {
@@ -242,6 +266,15 @@ hitACard = () =>{
         }
         
     }
+}
+
+placeCard = (randomCard) => {
+    //play card on the table
+    newCard = document.createElement('img');
+    newCard.src = "./images/" + randomCard.imgSrc + ".svg";
+    cardAreas[currentPlayer].appendChild(newCard);
+    randomCard.played = true;
+    playersCards[currentPlayer].push(randomCard);
 }
 
 //stand clicked
