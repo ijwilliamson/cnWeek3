@@ -7,8 +7,10 @@
     <title>Black Jack by Ian Williamson</title>
     <link rel="stylesheet" href="./styles/blackJack.css">
 </head>
-<body >
+<body>
+    <div class="status">Round 1 of 20</div>
     <gameTable>
+        
         <player id="playerOne">
            
             <stakes>
@@ -70,6 +72,12 @@
         <p>Player 1 receives £10</p>
         <p>Click for a new round</p>
     </winnerOverlay>
+
+    <endOverlay class="removed">
+        <p>End of the Game</p>
+        <p>Player 1 lost £40??</p>
+        <p>Plauer 2 won £40</p>
+    </endOverlay>
 
     <startOverlay>
         <h1>Black Jack</h1>

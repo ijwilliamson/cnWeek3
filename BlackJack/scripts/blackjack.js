@@ -41,8 +41,10 @@ const standButton = [document.getElementsByTagName('control')[0],
 const deck = document.querySelector('cardDeck img');
 
 const winnerOverlay = document.querySelector('winnerOverlay');
+const endOverlay = document.querySelector('endOverlay');
 const startScreen = document.querySelector('startOverlay');
 const startButton = document.getElementById('startGame');
+const infoBar = document.querySelector('.status');
 
 let playerNumberOptions = document.querySelectorAll('#playerNumber li');
 let startingCashOptions = document.querySelectorAll('#startingCash li');
@@ -60,9 +62,11 @@ let currentPlayer = 1;
 let cards = [];  
 let playersCards =  [[],[]]; //cannot think of a way to pre define
 let scores = [[0,0,0,0,0],[0,0,0,0,0]]; //possible score options
+let startcash = [100,100];
 let cash = [100,100];
 let bet = 5;
 let totalRounds = 5;
+let currentRound = 0;
 let gametype = 1; //0: 1Player, 1: 2Player
 
 
@@ -79,6 +83,7 @@ standButton.forEach((button) => {
 });
 
 winnerOverlay.addEventListener('click', () => reset());
+endOverlay.addEventListener('click', () => displayNewGameScreen());
 
 playerNumberOptions.forEach((li) => {
     li.addEventListener('click', (args)=> optionSelected('player',args))
@@ -97,7 +102,7 @@ startButton.addEventListener('click', ()=> beginNewGame());
 
 //Game Flow
 beginNewGame = () => {
-
+    currentRound =0;
     reset();
     setInitValues();
     startScreenVisible(false);
@@ -112,6 +117,10 @@ beginNewGame = () => {
 
 reset = () =>{
     //reset the game values.
+    if (currentRound>=totalRounds){
+        endGame();
+    }
+
     cards = [];
     playersCards = [[], []];
     scores = [[0,0,0,0,0],[0,0,0,0,0]];
@@ -123,15 +132,47 @@ reset = () =>{
     document.getElementsByClassName('playerStatus')[0].textContent = '';
     document.getElementsByClassName('playerStatus')[1].textContent = '';
     currentPlayer=1;
+    currentRound +=1;
     winnerOverlay.classList.add('removed');
     standButton[0].classList.add('removed');
     standButton[1].classList.add('removed');
+}
+
+endGame = () =>{
+    
+        let winner = 0;
+        lines = ["","","",""]
+        if (cash[0] === cash[1]){
+            //draw
+            lines[0] = "It's a draw!!"
+        } else if (cash[0] > cash[1]){
+            winner = 2;
+            //player 2 wins
+            lines[0] = "Player 2 is the overall winner";
+            lines[1] = `Player 2 won £${cash[0]-startcash[0]}`;
+            lines[2] = `Player 1 lost £${startcash[1]-cash[1]}`;
+        } else {
+            winnder = 1;
+            //player 1 wins
+            lines[0] = "Player 1 is the overall winner";
+            lines[1] = `Player 1 won £${cash[1]-startcash[1]}`;
+            lines[2] = `Player 2 lost £${startcash[0]-cash[0]}`;
+        }
+        lines[3] = "Click to play again"
+        endOverlay.innerHTML=`<p>${lines[0]}</p><p>${lines[1]}</p><p>${lines[2]}</p><p>${lines[3]}</p>`
+        endOverlay.className="";
+}
+
+displayNewGameScreen = () =>{
+    endOverlay.classList.add('removed')
+    startScreen.className="";
 }
 
 setInitValues = () =>{
     //set the game values to those chosen on the start screen
     gametype = getGameType();
     cash = getStartingCash();
+    startcash = getStartingCash();
     totalRounds = getTotalRounds();
 }
 
@@ -174,6 +215,8 @@ updateUI = () =>{
     playerAmounts[2].textContent = `£${cash[1]}`
     playerAmounts[1].textContent = `£${bet}`
     playerAmounts[3].textContent = `£${bet}`
+
+    infoBar.textContent = `Round ${currentRound} of ${totalRounds}`
 
     //set Player 1 Score
     //set Player 2 Score
@@ -413,6 +456,7 @@ calculateWinner = (status)=> {
     
     updateUI();
 
+
     winningPlayer = (winningPlayer === 0) ? 2 : 1;
 
     winnerOverlay.innerHTML=
@@ -421,6 +465,8 @@ calculateWinner = (status)=> {
     `<p>Click for the next round</p>`
 
     winnerOverlay.classList.remove('removed');
+
+
 }
 
 
