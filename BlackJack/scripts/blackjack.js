@@ -134,8 +134,8 @@ reset = () =>{
     currentPlayer=1;
     currentRound +=1;
     winnerOverlay.classList.add('removed');
-    standButton[0].classList.add('removed');
-    standButton[1].classList.add('removed');
+    standButton[0].classList.add('disabled');
+    standButton[1].classList.add('disabled');
 }
 
 endGame = () =>{
@@ -313,7 +313,7 @@ hitACard = () =>{
     // to here
         
     placeCard(randomCard);
-    standButton[currentPlayer].classList.remove('removed');
+    standButton[currentPlayer].classList.remove('disabled');
     
 
     newScore = checkScore(currentPlayer)
@@ -350,9 +350,14 @@ placeCard = (randomCard) => {
 
 //stand clicked
 standClicked = ()=> {
-    
+     if (playersCards[currentPlayer].length === 0){
+            return;
+        }
     if (currentPlayer === 0){
+        console.log(playersCards[currentPlayer].length)
+       
         calculateWinner(-1);
+        
     } else {
 
         switchPlayer();
@@ -363,7 +368,7 @@ standClicked = ()=> {
 }
 
 switchPlayer = () => {
-    standButton[1].classList.add('removed');
+    standButton[1].classList.add('disabled');
     currentPlayer -=1;
     //change active stand button
     //change opacity of the player
