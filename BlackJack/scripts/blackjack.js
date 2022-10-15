@@ -27,13 +27,8 @@ const playerAreas = [document.getElementsByTagName('player')[0],
    
 const playerAmounts = document.getElementsByTagName('amount');
 
-
-
-
 const cardAreas = [document.getElementsByTagName('cards')[0],
                    document.getElementsByTagName('cards')[1]];
-
-
 
 const standButton = [document.getElementsByTagName('control')[0],
                    document.getElementsByTagName('control')[1]];
@@ -46,9 +41,9 @@ const startScreen = document.querySelector('startOverlay');
 const startButton = document.getElementById('startGame');
 const infoBar = document.querySelector('.status');
 
-let playerNumberOptions = document.querySelectorAll('#playerNumber li');
-let startingCashOptions = document.querySelectorAll('#startingCash li');
-let roundOptions = document.querySelectorAll('#rounds li');
+const playerNumberOptions = document.querySelectorAll('#playerNumber li');
+const startingCashOptions = document.querySelectorAll('#startingCash li');
+const roundOptions = document.querySelectorAll('#rounds li');
 
 
 // variables
@@ -69,13 +64,16 @@ let totalRounds = 5;
 let currentRound = 0;
 let gametype = 1; //0: 1Player, 1: 2Player
 
+let AiTimer = 0;  //AI timer variable
+
 
 console.log(playerNumberOptions);
 console.log(startingCashOptions);
 console.log(roundOptions);
 
-//Events
 
+
+//Events
 deck.addEventListener('click', () => hitACardAiFix());
 
 standButton.forEach((button) => {
@@ -138,7 +136,9 @@ reset = () =>{
     standButton[1].classList.add('disabled');
 }
 
-endGame = () =>{
+endGame = () => {
+    //handle end of game by displaying the endOverlay with the game summary
+    //this is a little confusing because you have to remember that Player 2 has the playerId of 1 and player 2 has the playerId of 0
     
         let winner = 0;
         lines = ["","","",""]
@@ -170,6 +170,7 @@ displayNewGameScreen = () =>{
 
 setInitValues = () =>{
     //set the game values to those chosen on the start screen
+
     gametype = getGameType();
     cash = getStartingCash();
     startcash = getStartingCash();
@@ -218,10 +219,6 @@ updateUI = () =>{
 
     infoBar.textContent = `Round ${currentRound} of ${totalRounds}`
 
-    //set Player 1 Score
-    //set Player 2 Score
-    //set Player 1 State (Bust Stopped)
-    //set Player 2 State
 }
 
 getGameType = () =>{
@@ -273,7 +270,8 @@ optionSelected = (cat,args)=>{
            break;
    
        }
-   }
+}
+
 optionLiSet = (li,val)=>{
     li.className='';
     if (li.textContent === val){
@@ -281,8 +279,11 @@ optionLiSet = (li,val)=>{
     } 
 }
 
-//Game play
 
+
+// Game play
+
+// To protect the Ai from interference it is necessary to stop user clicks on the deck and stand buttons.
 hitACardAiFix = ()=>{
     if(gametype === 0 && currentPlayer === 0){
         //stop players from giving the ai extra cards
@@ -318,19 +319,16 @@ hitACard = () =>{
 
     newScore = checkScore(currentPlayer)
     updatePlayerScore(newScore)
-    if(newScore <= 21){
-        //player can continue and no action is required.
-    } else {
+    if(newScore > 21){
         //player is bust
         markPlayerBust();
-    }
+    } 
 }
 
 updatePlayerScore = (newScore) => {
     scorebox = document.querySelectorAll('player .playerScore')
     scorebox[currentPlayer].textContent = newScore;
 }
-
 
 markPlayerBust = () => {
     //TODO: needs improving
@@ -348,8 +346,11 @@ placeCard = (randomCard) => {
     playersCards[currentPlayer].push(randomCard);
 }
 
-//stand clicked
-standClicked = ()=> {
+
+standClicked = () => {
+
+    //stand clicked
+
      if (playersCards[currentPlayer].length === 0){
             return;
         }
@@ -370,19 +371,21 @@ standClicked = ()=> {
 switchPlayer = () => {
     standButton[1].classList.add('disabled');
     currentPlayer -=1;
-    //change active stand button
-    //change opacity of the player
+
+
 }
 
 onePlayerAi = () => {
     Timer(true);
    
 }
-AiTimer = 0;
+
+
 
 Timer = (val) => {
+    //Create the AI timer to place cards on the deck in with a pause between
     if (val) {
-        AiTimer = setInterval(AiDrawACard,300)
+        AiTimer = setInterval(AiDrawACard,500)
     } else{
          clearInterval(AiTimer);
     }
