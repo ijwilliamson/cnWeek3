@@ -15,8 +15,6 @@ class card {
 
     }}
 
-
-
 //Initial Constants
 const suits = ["C","S","H","D"];
 const cardNumbers = ["A","2-9","T","J","Q","K"];
@@ -27,13 +25,8 @@ const playerAreas = [document.getElementsByTagName('player')[0],
    
 const playerAmounts = document.getElementsByTagName('amount');
 
-
-
-
 const cardAreas = [document.getElementsByTagName('cards')[0],
                    document.getElementsByTagName('cards')[1]];
-
-
 
 const standButton = [document.getElementsByTagName('control')[0],
                    document.getElementsByTagName('control')[1]];
@@ -46,9 +39,9 @@ const startScreen = document.querySelector('startOverlay');
 const startButton = document.getElementById('startGame');
 const infoBar = document.querySelector('.status');
 
-let playerNumberOptions = document.querySelectorAll('#playerNumber li');
-let startingCashOptions = document.querySelectorAll('#startingCash li');
-let roundOptions = document.querySelectorAll('#rounds li');
+const playerNumberOptions = document.querySelectorAll('#playerNumber li');
+const startingCashOptions = document.querySelectorAll('#startingCash li');
+const roundOptions = document.querySelectorAll('#rounds li');
 
 
 // variables
@@ -68,37 +61,33 @@ let bet = 5;
 let totalRounds = 5;
 let currentRound = 0;
 let gametype = 1; //0: 1Player, 1: 2Player
+let AiTimer = 0;
 
-
-console.log(playerNumberOptions);
-console.log(startingCashOptions);
-console.log(roundOptions);
+//-------------------------------------------------------------------------
 
 //Events
 
-deck.addEventListener('click', () => hitACardAiFix());
+deck.addEventListener('click', () => hitACardAiFix() );
 
-standButton.forEach((button) => {
-    button.addEventListener('click', () => standAiFix());
-});
+standButton.forEach((button) => 
+    button.addEventListener('click', () => standAiFix()) );
 
-winnerOverlay.addEventListener('click', () => reset());
-endOverlay.addEventListener('click', () => displayNewGameScreen());
+winnerOverlay.addEventListener('click', () => reset() );
 
-playerNumberOptions.forEach((li) => {
-    li.addEventListener('click', (args)=> optionSelected('player',args))
-})
+endOverlay.addEventListener('click', () => displayNewGameScreen() );
 
-startingCashOptions.forEach((li) => {
-    li.addEventListener('click', (args)=> optionSelected('cash',args))
-})
+playerNumberOptions.forEach((li) => 
+    li.addEventListener('click', (args)=> optionSelected('player',args)) );
 
-roundOptions.forEach((li) => {
-    li.addEventListener('click', (args)=> optionSelected('rounds',args))
-})
+startingCashOptions.forEach((li) => 
+    li.addEventListener('click', (args)=> optionSelected('cash',args)) );
+
+roundOptions.forEach((li) => 
+    li.addEventListener('click', (args)=> optionSelected('rounds',args)) );
 
 startButton.addEventListener('click', ()=> beginNewGame());
 
+// ----------------------------------------------------------------------------
 
 //Game Flow
 beginNewGame = () => {
@@ -107,20 +96,18 @@ beginNewGame = () => {
     setInitValues();
     startScreenVisible(false);
     updateUI();
-    //Game becomes event driven by the user until a winner emerges
 
+    //Game becomes event driven by the user until a winner emerges
 }
 
+//------------------------------------------------------------------------------
 
 //Game Functions
 
-
 reset = () =>{
     //reset the game values.
-    if (currentRound>=totalRounds){
-        endGame();
-    }
-
+    if (currentRound>=totalRounds) endGame();
+    
     cards = [];
     playersCards = [[], []];
     scores = [[0,0,0,0,0],[0,0,0,0,0]];
@@ -136,31 +123,6 @@ reset = () =>{
     winnerOverlay.classList.add('removed');
     standButton[0].classList.add('disabled');
     standButton[1].classList.add('disabled');
-}
-
-endGame = () =>{
-    
-        let winner = 0;
-        lines = ["","","",""]
-        if (cash[0] === cash[1]){
-            //draw
-            lines[0] = "It's a draw!!"
-        } else if (cash[0] > cash[1]){
-            winner = 2;
-            //player 2 wins
-            lines[0] = "Player 2 is the overall winner";
-            lines[1] = `Player 2 won £${cash[0]-startcash[0]}`;
-            lines[2] = `Player 1 lost £${startcash[1]-cash[1]}`;
-        } else {
-            winnder = 1;
-            //player 1 wins
-            lines[0] = "Player 1 is the overall winner";
-            lines[1] = `Player 1 won £${cash[1]-startcash[1]}`;
-            lines[2] = `Player 2 lost £${startcash[0]-cash[0]}`;
-        }
-        lines[3] = "Click to play again"
-        endOverlay.innerHTML=`<p>${lines[0]}</p><p>${lines[1]}</p><p>${lines[2]}</p><p>${lines[3]}</p>`
-        endOverlay.className="";
 }
 
 displayNewGameScreen = () =>{
@@ -185,6 +147,7 @@ buildDeck = ()=>{
     cards = [];
 
     suits.forEach((suit) => {
+
         cardNumbers.forEach((num) => {
             switch(num){
                 case "A":
@@ -203,6 +166,7 @@ buildDeck = ()=>{
                     break;
             }
         })
+
     })
 }
 
@@ -218,10 +182,6 @@ updateUI = () =>{
 
     infoBar.textContent = `Round ${currentRound} of ${totalRounds}`
 
-    //set Player 1 Score
-    //set Player 2 Score
-    //set Player 1 State (Bust Stopped)
-    //set Player 2 State
 }
 
 getGameType = () =>{
@@ -266,14 +226,15 @@ optionSelected = (cat,args)=>{
            case 'cash':
                startingCashOptions.forEach((li) => 
                    optionLiSet(li,selectedItemText));
-           break;
+                break;
            case 'rounds':
                roundOptions.forEach((li) => 
                    optionLiSet(li,selectedItemText));
-           break;
+                break;
    
        }
    }
+
 optionLiSet = (li,val)=>{
     li.className='';
     if (li.textContent === val){
@@ -281,9 +242,8 @@ optionLiSet = (li,val)=>{
     } 
 }
 
-//Game play
-
 hitACardAiFix = ()=>{
+    //If Ai is current player ignore hit a card.
     if(gametype === 0 && currentPlayer === 0){
         //stop players from giving the ai extra cards
         return;
@@ -293,6 +253,7 @@ hitACardAiFix = ()=>{
 }
 
 standAiFix = ()=>{
+    //If Ai is currently playing ignore stand button
     if(gametype === 0 && currentPlayer === 0){
         //stop players from standing the AI
         return;
@@ -301,36 +262,28 @@ standAiFix = ()=>{
     }
 }
 
-//Get a random unplayed card
 hitACard = () =>{
-   
+   //Get a random unplayed card
     let randomCard = null;
     do{
         i = Math.floor(Math.random(1)*52);
         randomCard = cards[i];
     
     } while(randomCard.played)
-    // to here
-        
+            
     placeCard(randomCard);
     standButton[currentPlayer].classList.remove('disabled');
     
-
     newScore = checkScore(currentPlayer)
     updatePlayerScore(newScore)
-    if(newScore <= 21){
-        //player can continue and no action is required.
-    } else {
-        //player is bust
-        markPlayerBust();
-    }
+    if(newScore> 21) markPlayerBust();
+    
 }
 
 updatePlayerScore = (newScore) => {
     scorebox = document.querySelectorAll('player .playerScore')
     scorebox[currentPlayer].textContent = newScore;
 }
-
 
 markPlayerBust = () => {
     //TODO: needs improving
@@ -348,18 +301,17 @@ placeCard = (randomCard) => {
     playersCards[currentPlayer].push(randomCard);
 }
 
-//stand clicked
+
 standClicked = ()=> {
+    //stand clicked
      if (playersCards[currentPlayer].length === 0){
             return;
         }
+
     if (currentPlayer === 0){
-        console.log(playersCards[currentPlayer].length)
-       
         calculateWinner(-1);
         
     } else {
-
         switchPlayer();
         if (gametype===0){
             onePlayerAi();
@@ -370,15 +322,12 @@ standClicked = ()=> {
 switchPlayer = () => {
     standButton[1].classList.add('disabled');
     currentPlayer -=1;
-    //change active stand button
-    //change opacity of the player
 }
 
 onePlayerAi = () => {
     Timer(true);
    
 }
-AiTimer = 0;
 
 Timer = (val) => {
     if (val) {
@@ -402,7 +351,6 @@ AiDrawACard = () => {
     }
 }
 
-
 checkScore = (player)=> {
     //check possible scores of current player
     //loop for each ace using 11 and 1
@@ -410,9 +358,7 @@ checkScore = (player)=> {
 
     let tempCardValues = [];
    
-    playersCards[player].forEach((card) =>{
-        tempCardValues.push(card.value);
-    })
+    playersCards[player].forEach((card) => tempCardValues.push(card.value) );
     let i=0;
     do{
         //sum the card values
@@ -445,7 +391,7 @@ calculateWinner = (status)=> {
     //1 player 2 wins
     //-1 both players stuck, check scores
     clearInterval(AiTimer);
-    console.log(AiTimer);
+   
     let winningPlayer = 0;
 
     if (status >= 0){
@@ -461,7 +407,6 @@ calculateWinner = (status)=> {
     
     updateUI();
 
-
     winningPlayer = (winningPlayer === 0) ? 2 : 1;
 
     winnerOverlay.innerHTML=
@@ -470,10 +415,31 @@ calculateWinner = (status)=> {
     `<p>Click for the next round</p>`
 
     winnerOverlay.classList.remove('removed');
-
-
 }
 
-
+endGame = () =>{
+    
+    let winner = 0;
+    lines = ["","","",""]
+    if (cash[0] === cash[1]){
+        //draw
+        lines[0] = "It's a draw!!"
+    } else if (cash[0] > cash[1]){
+        winner = 2;
+        //player 2 wins
+        lines[0] = "Player 2 is the overall winner";
+        lines[1] = `Player 2 won £${cash[0]-startcash[0]}`;
+        lines[2] = `Player 1 lost £${startcash[1]-cash[1]}`;
+    } else {
+        winnder = 1;
+        //player 1 wins
+        lines[0] = "Player 1 is the overall winner";
+        lines[1] = `Player 1 won £${cash[1]-startcash[1]}`;
+        lines[2] = `Player 2 lost £${startcash[0]-cash[0]}`;
+    }
+    lines[3] = "Click to play again"
+    endOverlay.innerHTML=`<p>${lines[0]}</p><p>${lines[1]}</p><p>${lines[2]}</p><p>${lines[3]}</p>`
+    endOverlay.className="";
+}
 
 

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Jack by Ian Williamson</title>
+    <title>Blackjack by Ian Williamson</title>
     <link rel="stylesheet" href="./styles/blackJack.css">
 </head>
 <body>
     <div class="status">Round 1 of 20</div>
+
     <gameTable>
         
         <player id="playerOne">
@@ -18,23 +19,23 @@
                     <name>Cash</name>
                     <amount>£100</amount>
                 </pot>
-              
-                
                 <pot>
                     <name>Bet</name>
                     
                     <amount>£100</amount>
                 </pot>
             </stakes>
+
             <info>
                 <div class="playerName">Player 2</div>
                 <div class="playerScore">00</div>
                 <div class="playerStatus"></div>
-                
             </info>
             
             <cards></cards>
+
             <control enabled="false" class="removed">stand</control>
+
         </player>
 
         <player id="playerTwo">
@@ -44,27 +45,27 @@
                     <name>Cash</name>
                     <amount>£100</amount>
                 </pot>
-               
-                
                 <pot>
                     <name>Bet</name>
                     <amount>£100</amount>
                 </pot>
             </stakes>
+
             <info>
                 <div class="playerName">Player 1</div>
                 <div class="playerScore">00</div>
                 <div class="playerStatus"></div>
                 
             </info>
-            <cards>
-                
-                
-            </cards>
+
+            <cards></cards>
+
             <control>stand</control>
+
         </player>
         
     </gameTable>
+
     <cardDeck>
         <img src="./images/1B.svg" height="100%">
     </cardDeck>
@@ -82,22 +83,25 @@
     </endOverlay>
 
     <startOverlay>
+        
         <h1>Black Jack</h1>
         
-            <ul id="playerNumber">
-                <li class="selected">1 Player</li>
-                <li>2 Player</li>
-            </ul>
-           
-        
+        <ul id="playerNumber">
+            <li class="selected">1 Player</li>
+            <li>2 Player</li>
+        </ul>
+
         <p>Starting Cash</p>
+        
         <ul id="startingCash">
             <li>£25</li>
             <li>£50</li>
             <li>£75</li>
             <li class="selected">£100</li>
         </ul>
+
         <p>Number of Rounds</p>
+
         <ul id="rounds">
             <li>5</li>
             <li class="selected">10</li>
@@ -105,9 +109,11 @@
             <li>20</li>
             <li>Infinite</li>
         </ul>
+
         <ul>
             <li id="startGame">Start Game</li>
         </ul>
+
     </startOverlay>
 
 

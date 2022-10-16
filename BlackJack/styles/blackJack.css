@@ -10,21 +10,9 @@
     --CardHeight:calc(328px * var(--cardScale));
     
 } 
+
 ::selection { background: transparent; }
 ::-moz-selection { background: transparent; }
-
-*.unselectable {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
- 
-    /*
-      Introduced in Internet Explorer 10.
-      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
-    */
-    -ms-user-select: none;
-    user-select: none;
- }
 
 /* Height Responsive */
 @media (min-height:835px) and (min-width:610px)  {
@@ -87,10 +75,6 @@
                 font-size: 12px;
             }
         }
-
-
-
-
 
 @media (max-height:632px) and (min-width:610px) {
     :root{
@@ -183,22 +167,6 @@
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 body {
     width:100vw;
     height:100vh;
@@ -258,8 +226,7 @@ player stakes{
     height:calc(var(--CardHeight) /2);
     width: 100%;
     background-color: var(--black);
-    filter: drop-shadow(0px 2px 2px black)
-
+    filter: drop-shadow(0px 2px 2px black);
 }
 
 player stakes pot{
@@ -268,26 +235,25 @@ player stakes pot{
     justify-content: center;
     width:10%;
     color:white;
-    text-align: center;
-   
+    text-align: center;  
 }
+
 player stakes pot name {
     font-size: .8em;
     display:block;
     padding: 2px;
     text-indent: 4px;
 }
+
 player stakes pot amount{
     display:block;
     width:calc(100% - 4px);
     padding:2px;
     text-indent:4px;
-   
     font-size:.7em;
 }
 
  control{
-    
     border: 2px solid black;
     height:calc( (var(--CardHeight) /2 ) - 20px);
     width: 2em;
@@ -306,13 +272,11 @@ player stakes pot amount{
     border-radius: 5px;
     filter:drop-shadow(3px 3px 0 black);
     box-shadow: inset 0 0 .2em black;
-
 }
 
  control:hover{
     cursor: pointer;
     background-color: rgb(211, 105, 102);
-
 }
 
 control:active{
@@ -326,12 +290,14 @@ control:active{
     filter:drop-shadow(-1px -1px 0 black);
    transform: translate(1px, 1px);
 }
+
 .disabled:hover{
     background-color: rgb(138, 138, 138);
     cursor: default;
     filter:drop-shadow(-1px -1px 0 black);
    transform: translate(1px, 1px);
 }
+
 .disabled:active{
     background-color: rgb(138, 138, 138);
     cursor: default;
@@ -339,14 +305,11 @@ control:active{
    transform: translate(1px, 1px);
 }
 
-
-
 player cards{
     display:flex;
     justify-content: center;
     background-color: var(--subtleBrown);
-    
-   height:var(--CardHeight);
+    height:var(--CardHeight);
     width:100%;
     filter:drop-shadow(0 -2px 2px black);
     border-radius: 0 0 10px 10px;
@@ -354,7 +317,6 @@ player cards{
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
-   
 }
 
 player cards img{
@@ -382,8 +344,6 @@ player info div{
     justify-content: center;
     color:white;
     filter:drop-shadow(0 -2px 2px black);
-    
-    
 }
 
 cardDeck{
@@ -398,7 +358,6 @@ cardDeck{
     width: calc(var(--CardHeight) / 1.6);
     margin-left:auto;
     margin-right:auto;
-   
 }
 
 winnerOverlay, startOverlay, endOverlay{
@@ -422,7 +381,6 @@ winnerOverlay p, endOverlay p{
     width:50%;
     text-align: center;
     padding:10px;
-   
 }
 
 startOverlay h1{
@@ -469,7 +427,6 @@ startOverlay li:hover{
 .selected:hover{
     background-color: rgb(201, 64, 6);
 }
-
 
 .removed{
     display:none;
